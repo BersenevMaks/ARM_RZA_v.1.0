@@ -1,0 +1,6 @@
+select ID, Res, PS_type, PS_name, Pris as Prisoed, Dev_name, Dev_type, Terminal_type, Uprav, Vedom, Napr, Year_create, Year_start, Cicle, Last_year_vosst,
+Vid_TO_Id as Y2020, Vid_TO_Id as Y2021, Vid_TO_Id as Y2022, Vid_TO_Id as Y2023, Vid_TO_Id as Y2024, Vid_TO_Id as Y2025, Ispol_type
+from Devices 
+left join Prisoedes on Prisoedes.ID = PrisoedId
+left join Dev_types on Dev_types.ID = Dev_typeId
+left join T2020 on T2020.Device_Id = Devices.ID

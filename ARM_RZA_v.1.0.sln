@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARM_RZA_v.1.0", "ARM_RZA_v.1.0\ARM_RZA_v.1.0.csproj", "{DCB6C5EF-A57B-40DA-BA00-98F858FA0211}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCB6C5EF-A57B-40DA-BA00-98F858FA0211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB6C5EF-A57B-40DA-BA00-98F858FA0211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB6C5EF-A57B-40DA-BA00-98F858FA0211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB6C5EF-A57B-40DA-BA00-98F858FA0211}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC078528-36E3-4BAA-94FD-E63EEC38E975}
+	EndGlobalSection
+EndGlobal

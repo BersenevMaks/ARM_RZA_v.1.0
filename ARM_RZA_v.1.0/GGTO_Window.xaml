@@ -1,0 +1,108 @@
+﻿<Window x:Class="ARM_RZA_v._1._0.GGTO_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ARM_RZA_v._1._0"
+        mc:Ignorable="d"
+        Title="Годовой график ТО" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="pack://siteoforigin:,,,/relay_3225.ico">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Год графика" Margin="15,0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" x:Name="comboBoxYear" ItemsSource="{Binding Years}" Width="200" />
+            <Button Content="Загрузить" Margin="15,0" Command="{Binding CommandLoadGGTO}"/>
+        </StackPanel>
+        <!--
+        <ListBox Grid.Row="0" x:Name="devicesList" ItemsSource="{Binding Devices}" Width="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Dev_name}" FontSize="16" />
+                        <TextBlock Text="{Binding Dev_type}" FontSize="12" />
+                        <TextBlock Text="{Binding Price}" FontSize="13" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox> -->
+
+        <DataGrid x:Name="myGridView" 
+           Grid.Row="1" Grid.Column="0"
+           Height="auto" Margin="5,15,5,0"  
+           AutoGenerateColumns="False" 
+           ItemsSource="{Binding Mgtoes}" >
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DatagridColumnHeaderStyle">
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="Height" Value="35" />
+                    <Setter Property="SeparatorBrush" Value="DarkRed" />
+                    <Setter Property="FontWeight" Value="Black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                <Grid>
+                                    <Border x:Name="columnHeaderBorder" BorderThickness="1" Padding="3,0,3,0">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              SnapsToDevicePixels="False" />
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="РЭС" Binding="{Binding Path=Res}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Тип ПС" Binding="{Binding Path=PS_type}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="ПС" Binding="{Binding Path=PS_name}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Присоединение" Binding="{Binding Path=Prisoed}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="УРЗА" Binding="{Binding Path=Dev_name}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Тип УРЗА" Binding="{Binding Path=Dev_type}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Тип Терминала" Binding="{Binding Path=Terminal_type}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Управление" Binding="{Binding Path=Uprav}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Ведение" Binding="{Binding Path=Vedom}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="U" Binding="{Binding Path=Napr}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Год изгот" Binding="{Binding Path=Year_create}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Год ввода" Binding="{Binding Path=Year_start}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Цикл" Binding="{Binding Path=Cicle}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Послед восст" Binding="{Binding Path=Last_year_vosst}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2020" Binding="{Binding Path=Y2020}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2021" Binding="{Binding Path=Y2021}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2022" Binding="{Binding Path=Y2022}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2023" Binding="{Binding Path=Y2023}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2024" Binding="{Binding Path=Y2024}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="2025" Binding="{Binding Path=Y2025}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DatagridColumnHeaderStyle}" Width="auto" Header="Испол" Binding="{Binding Path=Ispol_type}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="127,0" Width="auto">
+            <Button Content="Добавить" Margin="10" Command="{Binding AddCommand}" />
+            <Button Content="Изменить" Margin="10" Command="{Binding EditCommand}" 
+                    CommandParameter="{Binding ElementName=devicesList, Path=SelectedItem}" />
+            <Button Content="Удалить" Margin="10" Command="{Binding DeleteCommand}" 
+                    CommandParameter="{Binding ElementName=devicesList, Path=SelectedItem}" />
+            <Button Content="Загрузить из Excel" Width="auto" Margin="10" Command="{Binding LoadCommand}" />
+        </StackPanel>
+
+        <ProgressBar Grid.Row="3" Minimum="0" Maximum="{Binding MaxValue, Mode=OneWay}" 
+                     Value="{Binding ProgressValue, Mode=OneWay}" 
+                     Visibility="{Binding Visible}"
+                     Name="pbStatus" />
+        <StackPanel Grid.Row ="3" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding Visible}">
+            <TextBlock Grid.Row ="2" Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row ="2" Text=" / " HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row ="2" Text="{Binding ElementName=pbStatus, Path=Maximum, StringFormat={}{0:0}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </StackPanel>
+
+
+    </Grid>
+</Window>
