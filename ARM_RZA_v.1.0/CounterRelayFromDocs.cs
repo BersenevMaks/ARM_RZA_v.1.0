@@ -19,7 +19,8 @@ namespace ARM_RZA_v._1._0
         private List<string> files;
         private List<RelayDevice_Class> relayDevices;
 
-        SQL_Base sql_base;
+        List<SQL_Base> sql_bases;
+        List<Thread> threads;
 
         // поля для и переменные для ворда
         Word._Application application;
@@ -49,6 +50,7 @@ namespace ARM_RZA_v._1._0
                 //}
                 if (!string.IsNullOrEmpty(path))
                 {
+
                     string[] searchPatterns = "*.doc?".Split('|');//"*.xls?|*.doc?|*.pdf".Split('|');
                     files = new List<string>();
                     ObservableCollection<FileListItem> fileListItems = new ObservableCollection<FileListItem>();
@@ -81,7 +83,7 @@ namespace ARM_RZA_v._1._0
                     connection = new SQLiteConnection("Data Source=armbase.db; version=3");
                     connection.Open();
                     SetTextInfo("Подключение к базе установлено.");
-                    
+
                     // обработка ворда
                     Process();
 
@@ -101,6 +103,9 @@ namespace ARM_RZA_v._1._0
             //
             if (files.Count > 0)
             {
+                sql_bases = new List<SQL_Base>();
+                threads = new List<Thread>();
+
                 try
                 {
                     int currentFile = 1;
@@ -267,15 +272,21 @@ namespace ARM_RZA_v._1._0
             }
 
             //Запись в базу данных перечня найденных реле в отдельном потоке
-            sql_base = new SQL_Base();
+            sql_bases.Add(new SQL_Base());
 
-            //подписка на событие обновления списка найденных реле в документах
-            sql_base.SendRelayCollection += SendRelayCollection;
 
-            //запуск нового потока для работы с базой данных
-            Thread threadWriteToBase = new Thread(new ParameterizedThreadStart(sql_base.WriteRelayDevices));
-            threadWriteToBase.Start(relayDevices);
-            
+            if (sql_bases.Count > 0)
+            {
+                //подписка на событие обновления списка найденных реле в документах
+                sql_bases[sql_bases.Count - 1].SendRelayCollection += SendRelayCollection;
+
+                //запуск нового потока для работы с базой данных
+
+                threads.Add(new Thread(new ParameterizedThreadStart(sql_bases[sql_bases.Count - 1].WriteRelayDevices)));
+                if (threads.Count > 0)
+                    threads[threads.Count - 1].Start(relayDevices);
+            }
+
         }
 
         private void SendRelayCollection(ObservableCollection<CountRalayTypeItems> CountRelayCollection)

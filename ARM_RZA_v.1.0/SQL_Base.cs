@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Common;
 using System.Data.SQLite;
 using System.Windows;
 
@@ -61,13 +60,19 @@ namespace ARM_RZA_v._1._0
 
                 if (sQLiteDataReader.HasRows)
                 {
-                    while(sQLiteDataReader.Read())
+                    while (sQLiteDataReader.Read())
                     {
-                        countRalaysCollection.Add(new CountRalayTypeItems
+                        if (sQLiteDataReader.GetValues().Count == 2)
                         {
-                            RelayType = sQLiteDataReader.GetValue(0) as string,
-                            CountRelayOfType = sQLiteDataReader.GetValue(1) as string
-                        });
+                            var relayType = sQLiteDataReader.GetValue(0) as string;
+                            var countRelayOfType = Convert.ToString(sQLiteDataReader.GetValue(1) as Int64?);
+
+                            countRalaysCollection.Add(new CountRalayTypeItems
+                            {
+                                RelayType = relayType,
+                                CountRelayOfType = countRelayOfType
+                            });
+                        }
                     }
                 }
 

@@ -9,6 +9,11 @@ namespace ARM_RZA_v._1._0
 {
     class CounterRZA_View_Model : INotifyPropertyChanged
     {
+        public CounterRZA_View_Model()
+        {
+            TextPath = @"D:\_Проекты\ARM_RZA_v.1.0\ARM_RZA_v.1.0\bin\Debug";
+        }
+
         RelayCommand countRzaCommand;
         RelayCommand getPathCommand;
 
@@ -77,7 +82,7 @@ namespace ARM_RZA_v._1._0
             OnPropertyChanged("CountRelayCollection");
         }
 
-        // команда открыть окно МГТО
+        // команда подсчет 
         public RelayCommand Count_Command
         {
             get
@@ -95,6 +100,7 @@ namespace ARM_RZA_v._1._0
                           counterRelayFromDocs.SetMaxCountFiles += SetCountFiles;
                           counterRelayFromDocs.SetTextInfo += SetTextInfo;
                           counterRelayFromDocs.SetFileListItems += SetFileListItems;
+                          counterRelayFromDocs.SendCountReleyCollection += SetCountRelayCollection;
 
                           Thread thread = new Thread(counterRelayFromDocs.Run);
                           thread.Start();
